@@ -1,7 +1,19 @@
-FROM httpd:latest
+FROM php:7.4-apache
 
-WORKDIR /usr/local/apache2/htdcos/
+WORKDIR /var/www/html
 
-COPY index.html /usr/local/apache2/htdcos/
+COPY index.php /var/www/html/
+COPY conexao.php /var/www/html/
+COPY js.js /var/www/html/
+COPY index.html /var/www/html/
+COPY  css.css /var/www/html/
 
+RUN apt-get update && apt-get intall -y \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd -j$(nproc) gd \
+    && docker-php-ext install pdo_mysql
+    
 EXPOSE 80
