@@ -1,0 +1,7 @@
+FROM httpd:latest
+
+WORKDIR /usr/local/apache2/htdcos/
+
+COPY index.html /usr/local/apache2/htdcos/
+
+EXPOSE 80
